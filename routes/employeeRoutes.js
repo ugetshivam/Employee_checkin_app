@@ -64,7 +64,8 @@ router.patch('/employees/:id', async (req, res) => {
     const { id } = req.params;
     const updatedEmployee = req.body;
     const currEmployee = Employee.findById(id);
-    if(updatedEmployee.status === 'on' && currEmployee.status === false){
+    if(updatedEmployee.status === 'on'){
+        if(currEmployee.status === false){
         updatedEmployee.status = true;
         updatedEmployee.timeIn = dateTime;
         const msg = {
@@ -82,8 +83,10 @@ router.patch('/employees/:id', async (req, res) => {
             .catch((error) => {
               console.error(error)
             })
+          }
     }
-    else if(updatedEmployee.status !== 'on' && currEmployee.status === true){
+    else{
+      if(currEmployee.status === true){
         updatedEmployee.status = false;
         updatedEmployee.timeOut = dateTime;
         const msg = {
@@ -101,6 +104,7 @@ router.patch('/employees/:id', async (req, res) => {
             .catch((error) => {
               console.error(error)
             })
+          }
     }
     
     // console.log(updatedEmployee);
