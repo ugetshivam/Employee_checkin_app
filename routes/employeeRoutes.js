@@ -61,8 +61,10 @@ router.patch('/employees/:id', async (req, res) => {
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
+    const { id } = req.params;
     const updatedEmployee = req.body;
-    if(updatedEmployee.status === 'on'){
+    const currEmployee = Employee.findById(id);
+    if(updatedEmployee.status === 'on' && currEmployee.status === false){
         updatedEmployee.status = true;
         updatedEmployee.timeIn = dateTime;
         const msg = {
@@ -81,7 +83,7 @@ router.patch('/employees/:id', async (req, res) => {
               console.error(error)
             })
     }
-    else{
+    else if(updatedEmployee.status !== 'on' && currEmployee.status === true){
         updatedEmployee.status = false;
         updatedEmployee.timeOut = dateTime;
         const msg = {
@@ -100,7 +102,7 @@ router.patch('/employees/:id', async (req, res) => {
               console.error(error)
             })
     }
-    const { id } = req.params;
+    
     // console.log(updatedEmployee);
     await Employee.findByIdAndUpdate(id, updatedEmployee);
 
