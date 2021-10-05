@@ -21,7 +21,7 @@ router.post('/employees', async (req,res)=>{
     };
     const msg = {
         to: newEmployee.email, // Change to your recipient
-        from: 'shivam0156.cse19@chitkara.edu.in', // Change to your verified sender
+        from: process.env.SENDER, // Change to your verified sender
         subject: 'New Employee',
         text: 'Welcome to the company, you have been added to the database',
         html: '<strong>Welcome to the company, you have been added to the database</strong>',
@@ -62,15 +62,21 @@ router.patch('/employees/:id', async (req, res) => {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     const { id } = req.params;
+    const currEmployee = await Employee.findById(id);
+    // console.log(currEmployee.status);
     const updatedEmployee = req.body;
-    const currEmployee = Employee.findById(id);
     if(updatedEmployee.status === 'on'){
-        if(currEmployee.status === false){
-        updatedEmployee.status = true;
+      updatedEmployee.status = true;
+    }
+    else{
+      updatedEmployee.status = false;
+    }
+    // console.log(updatedEmployee.status);
+    if(updatedEmployee.status && !currEmployee.status){
         updatedEmployee.timeIn = dateTime;
         const msg = {
             to: updatedEmployee.email, // Change to your recipient
-            from: 'shivam0156.cse19@chitkara.edu.in', // Change to your verified sender
+            from: process.env.SENDER, // Change to your verified sender
             subject: 'Status',
             text: 'You Just Checked In',
             html: '<strong>You Just Checked In</strong>',
@@ -83,15 +89,13 @@ router.patch('/employees/:id', async (req, res) => {
             .catch((error) => {
               console.error(error)
             })
-          }
     }
-    else{
-      if(currEmployee.status === true){
-        updatedEmployee.status = false;
+    
+       else if(!updatedEmployee.status && currEmployee.status){
         updatedEmployee.timeOut = dateTime;
         const msg = {
             to: updatedEmployee.email, // Change to your recipient
-            from: 'shivam0156.cse19@chitkara.edu.in', // Change to your verified sender
+            from: process.env.SENDER, // Change to your verified sender
             subject: 'Status',
             text: 'You Just Checked Out',
             html: '<strong>You Just Checked Out</strong>',
@@ -105,8 +109,9 @@ router.patch('/employees/:id', async (req, res) => {
               console.error(error)
             })
           }
-    }
     
+
+
     // console.log(updatedEmployee);
     await Employee.findByIdAndUpdate(id, updatedEmployee);
 
