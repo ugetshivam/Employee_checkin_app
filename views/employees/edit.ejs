@@ -1,0 +1,53 @@
+<%- include("../partials/header") %> 
+<%- include("../partials/navbar") %> 
+
+
+<main class="container">
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="display-6">Edit Employee</h1>
+            <form action="/employees/<%=employee._id%>?_method=PATCH" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Employee Name" value="<%= employee.name %> ">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Name</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Employee Mail" value="<%= employee.email %> ">
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">+91</span>
+                        <input type="text" name="mobile" id="price" class="form-control" placeholder="Mobile"  aria-describedby="basic-addon1" value="<%= employee.mobile %> ">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input type="text" class="form-control" name="department" id="department" placeholder="Employee Department" value="<%= employee.department %> ">
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-check-label">Checked In</label>
+                    <% if(employee.status) {%> 
+                    <input type="checkbox" class="form-check-input" name="status" id="status" placeholder="Employee Status" checked>
+                    <% } %> 
+                    <% if(!employee.status){ %>
+                    <input type="checkbox" class="form-check-input" name="status" id="status" placeholder="Employee Status">
+                    <% } %> 
+                </div>
+
+                <button type="submit" class="btn btn-success btn-small">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+</main>
+
+
+
+<%- include("../partials/footer") %> 

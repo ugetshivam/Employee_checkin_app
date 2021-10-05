@@ -1,0 +1,44 @@
+<%- include("../partials/header") %> 
+<%- include("../partials/navbar") %> 
+
+
+<main class="container">
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="display-6">New Employee</h1>
+            <form action="/employees" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Employee Name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input class="form-control" type="email" name="email" id="email" placeholder="Employee Email">
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">+91</span>
+                        <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Phone Number"  aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input class="form-control" type="text" name="department" id="department" placeholder="Employee Department">
+                </div>
+
+                <button type="submit" class="btn btn-success btn-small">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+</main>
+
+
+
+<%- include("../partials/footer") %> 

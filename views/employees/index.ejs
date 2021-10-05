@@ -1,0 +1,33 @@
+<%- include('../partials/header.ejs') %> 
+<%- include('../partials/navbar.ejs') %> 
+
+<main>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Department</th>
+        <th scope="col">Checked In</th>
+        <th scope="col">In Time</th>
+        <th scope="col">Out Time</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(let employee of employees){ %> 
+      <tr>
+        <td><%= employee.name %> </td>
+        <td><%= employee.email %> </td>
+        <td><%= employee.department %> </td>
+        <td><%= employee.status %> </td>
+        <td><%= employee.timeIn %> </td>
+        <td><%= employee.timeOut %> </td>
+        <td>  <a href="/employees/<%=employee._id%>" class="btn btn-outline-primary">Expand</a></td>
+      </tr>
+      <% } %> 
+    </tbody>
+  </table>
+</main>
+
+<%- include('../partials/footer.ejs') %> 

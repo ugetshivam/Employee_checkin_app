@@ -1,0 +1,26 @@
+<%- include("../partials/header") %> 
+<%- include("../partials/navbar") %> 
+
+<main class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mx-auto" style="width: 35rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Name: <%=employee.name%></h5>
+                  <h5 class="card-title">Email: <%=employee.email%></h5>
+                  <h5 class="card-title">Mobile: +91<%=employee.mobile%></h5>
+                  <h5 class="card-title">Department: <%=employee.department%></h5>
+                  <h5 class="card-title">Checked In: <%=employee.status%></h5>
+                  <a href="/employees/<%= employee._id %>/edit" class="btn btn-info btn-small">Edit</a>
+                  
+                  <form class="d-inline-block" action="/employees/<%= employee._id %>?_method=DELETE" method="POST">
+                      <button class="btn btn-danger btn-small">Delete</button>
+                  </form>
+                
+                </div>
+              </div>
+        </div>
+    </div>
+</main>
+
+<%- include("../partials/footer") %> 
